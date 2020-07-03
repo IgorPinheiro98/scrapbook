@@ -1,9 +1,10 @@
 textarea {
   resize: none;
 }
-#scrapField .message-cards {
-  height: 200px;
-  overflow-y: scroll;
+
+#scrapsField .message-cards {
+  height: 250px;
+  width: 250px;
 }
 
 #scrapsField .message-cards .card-text {
@@ -23,6 +24,6 @@ textarea {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
