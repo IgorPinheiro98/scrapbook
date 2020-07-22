@@ -1,8 +1,11 @@
 class TaskList {
   constructor() {
     this.titleInput = document.getElementById("messageTitle");
+    this.editTitleInput = document.getElementById("editMessageTitle");
     this.messageInput = document.getElementById("messageBody");
+    this.editMessageInput = document.getElementById("editMessageBody");
     this.addBtn = document.getElementById("addButton");
+    this.btnSaveEdit = document.getElementById("saveEdit");
     this.scrapsField = document.getElementById("scrapsField");
 
     this.scraps = [];
@@ -19,6 +22,9 @@ class TaskList {
   }
 
   setButtonEvents() {
+    document.querySelectorAll(".edit-button").forEach((item) => {
+      item.onclick = (event) => this.openEditModal(event);
+    });
     document.querySelectorAll(".delete-button").forEach((item) => {
       item.onclick = (event) => this.deleteScrap(event);
     });
@@ -80,11 +86,35 @@ class TaskList {
     </div>
     <div class="w-100 d-flex justify-content-end pr-2 pb-2">
       <button class="btn btn-danger mr-1 delete-button">Deletar</button>
-      <button class="btn btn-info">Editar</button>
+      <button class="btn btn-info edit-button">Editar</button>
     </div>
   </div>
     `;
   }
-}
+  openEditModal(event) {
+    $("#editModal").modal("toggle");
 
+    const scrapId = event.path[2].getAttribute("id-scrap");
+
+    const scrapIndex = this.scraps.findIndex((item) => {
+      return item.id == scrapId;
+    });
+
+    this.editTitleInput.valeu = this.scraps[scrapIndex].title;
+    this.editMessageInput.valeu = this.scraps[scrapIndex].message;
+
+    this.btnSaveEdit.onclick = () => this.saveChanges(scrapIndex);
+  }
+
+  saveChanges(scrapIndex) {
+    $("#editModal").modal("hide");
+
+    let title = this.editMessageInput.value;
+    let message = this.editMessageInput.value;
+
+    this.scraps[scrapIndex].title = title;
+    this.scraps[scrapIndex].message = message;
+    this.renderScraps();
+  }
+}
 new TaskList();
